@@ -2,6 +2,9 @@ import sys
 import rdflib
 from visual_genome import api as vg
 
+OUT_DIR = "out"
+GRAPH_FILENAME = "vg_graph.n"
+
 print("STATUS: obtaining image IDs")
 
 # TODO: improve argument parsing
@@ -77,5 +80,8 @@ for image_id in vg_image_ids:
 
 print("STATUS: writing graph to file.")
 
-with open("vg_graph.n", "wb") as graph_file:
+if not os.path.exists(OUT_DIR):
+    os.makedirs(OUT_DIR)
+
+with open(OUT_DIR + "/" + GRAPH_FILENAME, "wb") as graph_file:
     graph_file.write(vg_graph.serialize(format="n3"))
